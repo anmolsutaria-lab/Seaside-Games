@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Nebula Games</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <div class="app-container">
+    <div class="sidebar">
+        <div class="brand">
+            <i class="fa-solid fa-gamepad" style="color:var(--accent);"></i>
+            Nebula
+        </div>
+
+        <div class="nav-links">
+            <div class="nav-header">Menu</div>
+            <div class="nav-item active" onclick="switchView('view-home', this)">
+                <i class="fa-solid fa-house"></i> Home
+            </div>
+            <div class="nav-item" onclick="resetAndShowAll(this)">
+                <i class="fa-solid fa-layer-group"></i> All Games
+            </div>
+            <div class="nav-item" onclick="showTrending(this)">
+                <i class="fa-solid fa-fire"></i> Trending
+            </div>
+            <div class="nav-item" onclick="showFavorites(this)">
+                <i class="fa-solid fa-star"></i> Favorites
+            </div>
+
+            <div class="dropdown-container">
+                <button class="dropdown-btn" onclick="toggleDropdown()">
+                    <span><i class="fa-solid fa-list" style="margin-right:10px;"></i> Categories</span>
+                    <i class="fa-solid fa-chevron-down" style="font-size:10px;"></i>
+                </button>
+                <div class="dropdown-content" id="cat-dropdown">
+                    <div class="sub-item" onclick="filterGames('Action', this)">Action</div>
+                    <div class="sub-item" onclick="filterGames('Arcade', this)">Arcade</div>
+                    <div class="sub-item" onclick="filterGames('Clicker', this)">Clicker</div>
+                    <div class="sub-item" onclick="filterGames('Funny', this)">Funny</div>
+                </div>
+            </div>
+
+            
+            <div class="nav-item" onclick="switchView('view-apps', this)">
+                <i class="fa-brands fa-android"></i> Apps
+            </div>
+            
+            <div class="nav-header">Info</div>
+            <div class="nav-item" onclick="switchView('view-credits', this)">
+                <i class="fa-solid fa-circle-info"></i> Credits
+            </div>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="online-status">
+                <div class="dot"></div>
+                
+            </div>
+            <div style="color: #444;">V2.2 • Updated</div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass" style="color: #666;"></i>
+                <input type="text" id="global-search" placeholder="Search games..." onkeyup="searchGames()">
+            </div>
+            <div class="stats-bar">
+                <div class="stat-item" id="time-display">12:00 PM</div>
+                <button class="settings-btn" onclick="toggleSettings()">
+                    <i class="fa-solid fa-gear"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="view-home" class="view-section active">
+            <div class="home-container">
+                <div class="hero-text">
+                    <h1 class="hero-title">Nebula Games (RELEASE)</h1>
+                    <p class="hero-sub">Click ' to autoswitch to OLSD portal. (Click settings to disguise tab as Google Drive)  </p>
+                    <div class="hero-buttons">
+                        <button class="play-now-btn" onclick="resetAndShowAll()">Browse Library</button>
+                        <button class="play-now-btn secondary" onclick="showTrending()">See Trending</button>
+                    </div>
+                </div>
+                <div class="visual-columns">
+                    <div class="scrolling-col col-up" id="col-1"></div>
+                    <div class="scrolling-col col-down" id="col-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-all" class="view-section">
+            <div class="section-header">
+                <h2 id="library-title">All Games</h2>
+            </div>
+            <div class="games-grid" id="all-games-grid">
+                </div>
+        </div>
+
+        <div id="view-favorites" class="view-section">
+            <div class="section-header"><h2>Your Favorites</h2></div>
+            <div id="fav-container" class="games-grid"></div>
+            <div id="no-favs-msg" style="display:none; text-align:center; margin-top:50px; color:#666;">
+                <i class="fa-regular fa-star" style="font-size: 40px; margin-bottom:10px;"></i>
+                <p>No Favorites Yet</p>
+            </div>
+        </div>
+
+        <div id="view-trending" class="view-section">
+             <div class="section-header"><h2>Trending Now <i class="fa-solid fa-fire" style="color:orange;"></i></h2></div>
+             <div class="games-grid" id="trending-grid"></div>
+        </div>
+
+        <div id="view-movies" class="view-section">
+            <div class="section-header"><h2>Movies</h2></div>
+            
+            <div class="movie-card" onclick="openPlayer('x8m56a4', 'Cloudy with a Chance of Meatballs')">
+                <div class="movie-poster" style="background-image: url('https://upload.wikimedia.org/wikipedia/en/d/d1/Cloudy_with_a_chance_of_meatballs_poster.jpg');"></div>
+                <div class="movie-title">Cloudy with a Chance of Meatballs</div>
+            </div>
+
+            <div class="movie-card" onclick="openPlayer('x9ruy64', 'Escape from Planet Earth')">
+                <div class="movie-poster" style="background-image: url('https://upload.wikimedia.org/wikipedia/en/a/a2/Escape_from_Planet_Earth_Poster.jpg');"></div>
+                <div class="movie-title">Escape from Planet Earth</div>
+            </div>
+
+            <div class="movie-card" onclick="openPlayer('x9nxtva', 'The Good Dinosaur')">
+                <div class="movie-poster" style="background-image: url('https://upload.wikimedia.org/wikipedia/en/8/80/The_Good_Dinosaur_poster.jpg');"></div>
+                <div class="movie-title">The Good Dinosaur</div>
+            </div>
+
+            <div class="movie-card" onclick="openPlayer('x9lj6f2', 'Coco')">
+                <div class="movie-poster" style="background-image: url('https://upload.wikimedia.org/wikipedia/en/9/98/Coco_%282017_film%29_poster.jpg');"></div>
+                <div class="movie-title">Coco</div>
+            </div>
+
+            <div class="movie-card" onclick="openPlayer('x9611g2', 'Free Birds')">
+                <div class="movie-poster" style="background-image: url('https://upload.wikimedia.org/wikipedia/en/2/2c/Free_Birds_poster.jpg');"></div>
+                <div class="movie-title">Free Birds</div>
+            </div>
+
+            <div class="movie-card" onclick="openPlayer('x9tvqkm', 'Half Nelson')">
+                <div class="movie-poster" style="background-image: url('https://upload.wikimedia.org/wikipedia/en/6/65/Half_Nelson_Poster.jpg');"></div>
+                <div class="movie-title">Half Nelson</div>
+            </div>
+
+            <div class="movie-card" onclick="openPlayer('x9yqkc4', 'Nowhere Special')">
+                <div class="movie-poster" style="background-image: url('https://upload.wikimedia.org/wikipedia/en/8/82/Nowhere_Special_poster.jpg');"></div>
+                <div class="movie-title">Nowhere Special</div>
+            </div>
+
+            <div class="movie-card" onclick="openPlayer('x9tor96', 'Trolls World Tour')">
+                <div class="movie-poster" style="background-image: url('https://upload.wikimedia.org/wikipedia/en/e/ed/Trolls_World_Tour_poster.jpg');"></div>
+                <div class="movie-title">Trolls World Tour</div>
+            </div>
+
+            <div class="movie-card" onclick="openPlayer('x9t8j82', 'Sleeping Beauty')">
+                <div class="movie-poster" style="background-image: url('https://upload.wikimedia.org/wikipedia/en/0/00/Sleeping_Beauty_1959_poster.jpg');"></div>
+                <div class="movie-title">Sleeping Beauty</div>
+            </div>
+
+            <div class="movie-card" onclick="openPlayer('x9abe5s', 'Kung Fu Dog')">
+                <div class="movie-poster" style="background-image: url('https://m.media-amazon.com/images/M/MV5BYmUyZWY4MDItMjkyZC00M2IwLTkzMGYtZmQ5ZmI1ODAyZGIyXkEyXkFqcGdeQXVyMjQ4MzcxNDU@._V1_FMjpg_UX1000_.jpg');"></div>
+                <div class="movie-title">Kung Fu Dog</div>
+            </div>
+
+            <div class="movie-card" onclick="openPlayer('x9ie844', 'The Incredibles')">
+                <div class="movie-poster" style="background-image: url('https://upload.wikimedia.org/wikipedia/en/e/ec/The_Incredibles.jpg');"></div>
+                <div class="movie-title">The Incredibles</div>
+            </div>
+
+            <div class="movie-card" onclick="openPlayer('x9h60de', 'Jumanji')">
+                <div class="movie-poster" style="background-image: url('https://upload.wikimedia.org/wikipedia/en/b/b6/Jumanji_poster.jpg');"></div>
+                <div class="movie-title">Jumanji</div>
+            </div>
+        </div>
+        <div id="view-apps" class="view-section">
+            <div class="section-header"><h2>Apps</h2></div>
+            <p style="color:#666;">Apps coming soon.</p>
+        </div>
+
+        <div id="view-credits" class="view-section">
+            <div class="section-header"><h2>Credits</h2></div>
+            <div class="credits-box">
+                <h3>Developer</h3>
+                <p>Anmol</p>
+                <br>
+                <h3>Note</h3>
+                <p>Keep in mind that not every game is guaranteed to work and the website has many flaws.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="settings-modal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3>Settings</h3>
+            <button onclick="toggleSettings()" style="background:none; border:none; color:white; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="setting-row">
+                <div class="setting-desc">
+                    <h4>Panic Mode</h4>
+                    <p>Press ` to redirect to Google.
+                 (Will not work if you're typing) </p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="panic-toggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="setting-row">
+                <div class="setting-desc">
+                    <h4>Tab Cloak</h4>
+                    <p>Disguise as Google Drive.</p>
+                </div>
+                 <button class="cta-btn" onclick="cloakTab()">Activate</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="game-frame-container">
+    <div class="frame-controls">
+        <span style="color:white; font-weight:bold; font-size: 18px;">Nebula</span>
+        <span class="close-game" onclick="closeGame()"><i class="fa-solid fa-xmark"></i> Close Game</span>
+    </div>
+    <iframe id="game-frame" src=""></iframe>
+</div>
+
+<script>
+    // --- Navigation Logic ---
+    function switchView(viewId, element) {
+        // Hide all views
+        document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+        // Show target view
+        document.getElementById(viewId).classList.add('active');
+        
+        // Update sidebar active state
+        if(element) {
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+        }
+    }
+
+    // --- Dropdown Logic ---
+    function toggleDropdown() {
+        document.getElementById('cat-dropdown').classList.toggle('show');
+    }
+
+    // --- Movie/Game Player Logic ---
+    function openPlayer(id, title) {
+        const container = document.getElementById('game-frame-container');
+        const frame = document.getElementById('game-frame');
+        
+        // Check if it's a Dailymotion ID (usually starts with 'x' and is short)
+        // or a full URL. Here we assume Dailymotion IDs for the movies.
+        let url = "";
+        if (id.startsWith('http')) {
+            url = id;
+        } else {
+            // Embed URL for Dailymotion
+            url = `https://www.dailymotion.com/embed/video/${id}?autoplay=1&queue-enable=0&ui-logo=0`;
+        }
+
+        frame.src = url;
+        container.style.display = 'flex';
+        
+        // Optional: Update title in controls if you want to add an element for it
+        // document.querySelector('.frame-controls span:first-child').innerText = title;
+    }
+
+    function closeGame() {
+        const container = document.getElementById('game-frame-container');
+        const frame = document.getElementById('game-frame');
+        frame.src = ""; // Stop video
+        container.style.display = 'none';
+    }
+
+    // --- Settings Modal ---
+    function toggleSettings() {
+        const modal = document.getElementById('settings-modal');
+        if (modal.style.display === 'flex') {
+            modal.style.display = 'none';
+            modal.classList.remove('open');
+        } else {
+            modal.style.display = 'flex';
+            modal.classList.add('open');
+        }
+    }
+
+    // --- Clock ---
+    function updateTime() {
+        const now = new Date();
+        document.getElementById('time-display').innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // --- Placeholder Functions for Buttons ---
+    function resetAndShowAll(el) { switchView('view-all', el); }
+    function showTrending(el) { switchView('view-trending', el); }
+    function showFavorites(el) { switchView('view-favorites', el); }
+    function filterGames(category) { alert("Filtering for " + category); }
+    function searchGames() { console.log("Searching..."); }
+    function cloakTab() { 
+        document.title = "My Drive - Google Drive"; 
+        const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+        link.type = 'image/x-icon';
+        link.rel = 'shortcut icon';
+        link.href = 'https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    }
+</script>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
