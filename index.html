@@ -17,7 +17,6 @@
   <div class="app-container">
     <div class="sidebar">
         <div class="brand">
-            <i class="fa-solid fa-gamepad" style="color:var(--accent);"></i>
             Nebula
         </div>
 
@@ -28,9 +27,6 @@
             </div>
             <div class="nav-item" onclick="resetAndShowAll(this)">
                 <i class="fa-solid fa-layer-group"></i> All Games
-            </div>
-            <div class="nav-item" onclick="showTrending(this)">
-                <i class="fa-solid fa-fire"></i> Trending
             </div>
             <div class="nav-item" onclick="showFavorites(this)">
                 <i class="fa-solid fa-star"></i> Favorites
@@ -49,8 +45,6 @@
                 </div>
             </div>
 
-            
-            <div class="nav-header">Info</div>
             <div class="nav-item" onclick="switchView('view-credits', this)">
                 <i class="fa-solid fa-circle-info"></i> Credits
             </div>
@@ -86,7 +80,6 @@
                     <p class="hero-sub">Click ' to autoswitch to OLSD portal. (Click settings to disguise tab as Google Drive)  </p>
                     <div class="hero-buttons">
                         <button class="play-now-btn" onclick="resetAndShowAll()">Browse Library</button>
-                        <button class="play-now-btn secondary" onclick="showTrending()">See Trending</button>
                     </div>
                 </div>
                 <div class="visual-columns">
@@ -112,13 +105,6 @@
                 <p>No Favorites Yet</p>
             </div>
         </div>
-
-        <div id="view-trending" class="view-section">
-             <div class="section-header"><h2>Trending Now <i class="fa-solid fa-fire" style="color:orange;"></i></h2></div>
-             <div class="games-grid" id="trending-grid"></div>
-        </div>
-
-
 
         <div id="view-credits" class="view-section">
             <div class="section-header"><h2>Credits</h2></div>

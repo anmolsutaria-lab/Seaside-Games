@@ -198,7 +198,6 @@ window.onload = function() {
     renderAllGames(gamesData, 'all-games-grid');
     initHomeAnimation();
     updateTime();
-    renderTrending();
 };
 
 /* --- RENDERING SYSTEM --- */
@@ -312,18 +311,6 @@ function showFavorites(btn) {
         msg.style.display = 'none';
         renderAllGames(favGames, 'fav-container');
     }
-}
-
-/* --- TRENDING SYSTEM --- */
-function showTrending(btn) {
-    if(btn) switchView('view-trending', btn);
-    else switchView('view-trending'); 
-}
-
-function renderTrending() {
-    // Just pick the first 6 games as "Trending"
-    const trendingGames = gamesData.slice(0, 6); 
-    renderAllGames(trendingGames, 'trending-grid');
 }
 
 /* --- SEARCH --- */
